@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report>
+  <buildInformation>
+    <releaseDetails id="core" version="1.27.20" buildDate="2024-07-22T12:21:00Z"></releaseDetails>
+    <releaseDetails id="validation-model" version="1.27.36" buildDate="2024-07-26T10:47:00Z"></releaseDetails>
+    <releaseDetails id="gui" version="1.27.0-SNAPSHOT" buildDate="2024-07-30T09:22:00Z"></releaseDetails>
+  </buildInformation>
+  <jobs>
+    <job>
+      <item size="2142535">
+        <name>/data_in/changement_climatique.pdf</name>
+      </item>
+      <validationReport jobEndStatus="normal" profileName="PDF/A-1B validation profile" statement="PDF file is not compliant with Validation Profile requirements." isCompliant="false">
+        <details passedRules="126" failedRules="2" passedChecks="548" failedChecks="2">
+          <rule specification="ISO 19005-1:2005" clause="6.7.11" testNumber="1" status="failed" failedChecks="1">
+            <description>The PDF/A version and conformance level of a file shall be specified using the PDF/A Identification extension schema</description>
+            <object>MainXMPPackage</object>
+            <test>Identification_size == 1</test>
+            <check status="failed">
+              <context>root/document[0]/metadata[0](6 0 obj PDMetadata)/XMPPackage[0]</context>
+              <errorMessage>The document metadata stream doesn't contains PDF/A Identification Schema</errorMessage>
+            </check>
+          </rule>
+          <rule specification="ISO 19005-1:2005" clause="6.1.4" testNumber="3" status="failed" failedChecks="1">
+            <description>Xref streams shall not be used</description>
+            <object>PDDocument</object>
+            <test>containsXRefStream == false</test>
+            <check status="failed">
+              <context>root/document[0]</context>
+              <errorMessage>The document uses xref streams</errorMessage>
+            </check>
+          </rule>
+        </details>
+      </validationReport>
+      <duration start="1722336541116" finish="1722336541341">00:00:00.225</duration>
+    </job>
+  </jobs>
+  <batchSummary totalJobs="1" failedToParse="0" encrypted="0" outOfMemory="0" veraExceptions="0">
+    <validationReports compliant="0" nonCompliant="1" failedJobs="0">1</validationReports>
+    <featureReports failedJobs="0">0</featureReports>
+    <repairReports failedJobs="0">0</repairReports>
+    <duration start="1722336541058" finish="1722336541355">00:00:00.297</duration>
+  </batchSummary>
+</report>
