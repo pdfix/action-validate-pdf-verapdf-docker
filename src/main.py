@@ -48,7 +48,7 @@ def main():
         "-o",
         "--output",
         type=str,
-        help="The output PDF file",
+        help="The output validation file",
     )
     parser.add_argument(
         "--profile",
