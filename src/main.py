@@ -1,12 +1,35 @@
 import argparse
 import os
-import sys
 import subprocess
+import sys
 
 
-def run_validation(command):
+def run_validation(command: list) -> tuple:
+    """Execute a shell command and capture its output and return code.
+
+    This function runs the validation as shell command using the `subprocess.Popen`
+    method, captures the standard output (stdout), standard error (stderr),
+    and the return code of the process.
+
+    Args:
+    ----
+        command (str): The shell command to execute.
+
+    Returns:
+    -------
+        tuple: A tuple containing:
+            - stdout (str): The standard output of the command.
+            - stderr (str): The standard error of the command.
+            - return_code (int): The return code of the command
+              (0 indicates success, non-zero indicates failure).
+
+    """
     process = subprocess.Popen(
-        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        shell=True,
+        text=True,
     )
 
     stdout, stderr = process.communicate()
@@ -18,7 +41,7 @@ def run_validation(command):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Process a PDF or image file with Tesseract OCR"
+        description="Process a PDF or image file with Tesseract OCR",
     )
     parser.add_argument("-i", "--input", type=str, help="The input PDF file")
     parser.add_argument(
@@ -34,7 +57,10 @@ def main():
     )
 
     parser.add_argument(
-        "--maxfailuresdisplayed", type=int, default=-1, help="Max failures displayed"
+        "--maxfailuresdisplayed",
+        type=int,
+        default=-1,
+        help="Max failures displayed",
     )
 
     parser.add_argument(
@@ -76,7 +102,7 @@ def main():
             stdout, stderr, return_code = run_validation(" ".join(command))
 
             if args.output:
-                with open(args.output, "w+") as out:
+                with open(args.output, "w+", encoding="utf-8") as out:
                     out.write(stdout)
 
             else:
