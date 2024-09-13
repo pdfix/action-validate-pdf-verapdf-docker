@@ -23,6 +23,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Copy the source code and requirements.txt into the container
 COPY src/ /usr/validation/src/
+# res contains the VeraPDF CLI build
 COPY res/ /usr/validation/res/
 
 
