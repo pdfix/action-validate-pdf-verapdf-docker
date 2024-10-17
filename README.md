@@ -23,12 +23,12 @@ To run the Docker container as a CLI, you need to share the folder with the PDF 
 First run will pull the docker image, which may take some time. Make your own image for more advanced use.
 
 ```
-docker run -v $(pwd):/data --rm pdfix/validation:latest validate -i /data/<input>.pdf
+docker run -v $(pwd):/data --rm -w /data/ pdfix/validation:latest validate -i <input>.pdf
 ```
 
 Output as HTML
 ```
-docker run -v $(pwd)/example:/data --rm pdfix/validation:latest validate -i /data/<input>.pdf -o /data/index.html --format html
+docker run -v $(pwd):/data --rm -w /data/ pdfix/validation:latest validate -i <input>.pdf -o index.html --format html
 ```
 
 For more detailed information about the available command-line arguments, you can run the following command:

@@ -135,7 +135,7 @@ def main():
                 command = [
                     "java",
                     "-jar",
-                    "res/greenfield-apps-1.27.0-SNAPSHOT.jar",
+                    "/usr/validation/res/greenfield-apps-1.27.0-SNAPSHOT.jar",
                     "--maxfailuresdisplayed",
                     str(args.maxfailuresdisplayed),
                     "--format",

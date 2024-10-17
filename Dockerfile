@@ -27,4 +27,4 @@ COPY src/ /usr/validation/src/
 COPY res/ /usr/validation/res/
 
 
-ENTRYPOINT ["venv/bin/python3", "src/main.py"]
+ENTRYPOINT ["/usr/validation/venv/bin/python3", "/usr/validation/src/main.py"]
