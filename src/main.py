@@ -1,7 +1,23 @@
 import argparse
 import os
+import shutil
 import subprocess
 import sys
+from pathlib import Path
+
+
+def get_config(path: str) -> None:
+    if path is None:
+        with open(
+            os.path.join(Path(__file__).parent.absolute(), "../config.json"),
+            "r",
+            encoding="utf-8",
+        ) as f:
+            print(f.read())
+    else:
+        src = os.path.join(Path(__file__).parent.absolute(), "../config.json")
+        dst = path
+        shutil.copyfile(src, dst)
 
 
 def run_validation(command: list) -> tuple:
@@ -43,79 +59,111 @@ def main():
     parser = argparse.ArgumentParser(
         description="Process a PDF or image file with Tesseract OCR",
     )
-    parser.add_argument("-i", "--input", type=str, help="The input PDF file")
-    parser.add_argument(
+
+    subparsers = parser.add_subparsers(dest="subparser")
+
+    # config subparser
+    pars_config = subparsers.add_parser(
+        "config",
+        help="Extract config file for integration",
+    )
+    pars_config.add_argument(
+        "-o",
+        "--output",
+        type=str,
+        help="Output to save the config JSON file. Application output\
+              is used if not provided",
+    )
+
+    pars_validate = subparsers.add_parser(
+        "validate",
+        help="Run alternate text description",
+    )
+
+    pars_validate.add_argument("-i", "--input", type=str, help="The input PDF file")
+    pars_validate.add_argument(
         "-o",
         "--output",
         type=str,
         help="The output validation file",
     )
-    parser.add_argument(
+    pars_validate.add_argument(
         "--profile",
         type=str,
         help="Path to the validation profile",
     )
 
-    parser.add_argument(
+    pars_validate.add_argument(
         "--maxfailuresdisplayed",
         type=int,
         default=-1,
         help="Max failures displayed",
     )
 
-    parser.add_argument(
+    pars_validate.add_argument(
         "--format",
         type=str,
         default="xml",
         choices=["raw", "xml", "html", "text", "json"],
     )
 
-    args = parser.parse_args()
+    try:
+        args = parser.parse_args()
+    except SystemExit as e:
+        if e.code == 0:  # This happens when --help is used, exit gracefully
+            sys.exit(0)
+        print("Failed to parse arguments. Please check the usage and try again.")
+        sys.exit(1)
 
-    if not args.input:
-        parser.error("The following arguments are required: -i/--input")
+    if args.subparser == "config":
+        get_config(args.output)
+        sys.exit(0)
 
-    input_file = args.input
-    output_file = args.output
+    elif args.subparser == "validate":
+        if not args.input:
+            pars_validate.error("The following arguments are required: -i/--input")
 
-    if not os.path.isfile(input_file):
-        sys.exit(f"Error: The input file '{input_file}' does not exist.")
-        return
+        input_file = args.input
+        output_file = args.output
 
-    if input_file.lower().endswith(".pdf"):
-        try:
-            command = [
-                "java",
-                "-jar",
-                "res/greenfield-apps-1.27.0-SNAPSHOT.jar",
-                "--maxfailuresdisplayed",
-                str(args.maxfailuresdisplayed),
-                "--format",
-                args.format,
-            ]
-            if args.profile:
-                command.append("--profile")
-                command.append(args.profile)
+        if not os.path.isfile(input_file):
+            sys.exit(f"Error: The input file '{input_file}' does not exist.")
+            return
 
-            command.append(args.input)
+        if input_file.lower().endswith(".pdf"):
+            try:
+                command = [
+                    "java",
+                    "-jar",
+                    "res/greenfield-apps-1.27.0-SNAPSHOT.jar",
+                    "--maxfailuresdisplayed",
+                    str(args.maxfailuresdisplayed),
+                    "--format",
+                    args.format,
+                ]
+                if args.profile:
+                    command.append("--profile")
+                    command.append(args.profile)
 
-            stdout, stderr, return_code = run_validation(" ".join(command))
+                command.append(args.input)
 
-            if args.output:
-                with open(args.output, "w+", encoding="utf-8") as out:
-                    out.write(stdout)
+                stdout, stderr, return_code = run_validation(" ".join(command))
 
-            else:
-                print(stdout)
+                if output_file:
+                    with open(args.output, "w+", encoding="utf-8") as out:
+                        out.write(stdout)
 
-            if stderr:
-                print(stderr, file=sys.stderr)
+                else:
+                    print(stdout)
 
-        except Exception as e:
-            sys.exit("Failed to run validation: {}".format(e))
+                if stderr:
+                    print(stderr, file=sys.stderr)
 
-    else:
-        print("Input file must be PDF")
+            except Exception as e:
+                sys.exit("Failed to run validation: {}".format(e))
+
+        else:
+            print("Input file must be PDF")
 
 
 if __name__ == "__main__":
