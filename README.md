@@ -23,7 +23,7 @@ To run the Docker container as a CLI, you need to share the folder with the PDF 
 First run will pull the docker image, which may take some time. Make your own image for more advanced use.
 
 ```
-docker run -v $(pwd):/data -w /data --rm pdfix/validation:latest validation -i input.pdf
+docker run -v $(pwd):/data --rm pdfix/validation:latest validation -i input.pdf
  
 ```
 
@@ -39,7 +39,7 @@ Comming soon. Please contact us.
 ### Exporting Configuration for Integration
 To export the configuration JSON file, use the following command:
 ```bash
-docker run -v $(pwd):/data -w /data --rm pdfix/validation:latest config -o config.json
+docker run -v $(pwd):/data --rm pdfix/validation:latest config -o config.json
 ```
 
 ## License
