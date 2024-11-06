@@ -1,0 +1,157 @@
+{
+  "actions": [
+    {
+      "title": "PDF/UA Validation VeraPDF",
+      "name": "validation_report",
+      "desc": "An action that validates PDFs using veraPDF, the industry-supported open-source PDF/UA validator, and saves results as HTML, XML, or JSON reports. This PDF Accessibility Checker allows users to easily perform PDF validation with customizable validation profiles.",
+      "icon": "bug_report",
+      "version": {
+        "major": 1,
+        "minor": 0,
+        "patch": 0
+      },
+      "category": "Validation",
+      "configurations": [
+        {
+          "platform": [
+            "debian",
+            "macos"
+          ],
+          "title": "HTML Validation Report",
+          "name": "html_validation_report_flavour",
+          "desc": "Generate a PDF validation report in HTML format",
+          "program": "run.sh --flavour \"${flavour}\" --format html --input \"${input_pdf}\" --output \"${output_html}\""
+        },
+        {
+          "platform": [
+            "windows"
+          ],
+          "title": "HTML Validation Report",
+          "name": "html_validation_report_flavour",
+          "desc": "Generate a PDF validation report in HTML format",
+          "program": "run.cmd --flavour \"${flavour}\" --format html --input \"${input_pdf}\" --output \"${output_html}\""
+        },
+        {
+          "platform": [
+            "debian",
+            "macos"
+          ],
+          "title": "HTML Validation Report with profile",
+          "name": "html_validation_report_profile",
+          "desc": "Generate a PDF validation report with profile in HTML format",
+          "program": "run.sh --profile \"${profile}\" --format html --input \"${input_pdf}\" --output \"${output_html}\""
+        },
+        {
+          "platform": [
+            "windows"
+          ],
+          "title": "HTML Validation Report with profile",
+          "name": "html_validation_report_profile",
+          "desc": "Generate a PDF validation report with profile in HTML format",
+          "program": "run.cmd --profile \"${profile}\" --format html --input \"${input_pdf}\" --output \"${output_html}\""
+        },
+        {
+          "platform": [
+            "debian",
+            "macos"
+          ],
+          "title": "XML Validation Report",
+          "name": "xml_validation_report_flavour",
+          "desc": "Generate a PDF validation report in XML format",
+          "program": "run.sh --flavour \"${flavour}\" --format xml --input \"${input_pdf}\" --output \"${output_xml}\""
+        },
+        {
+          "platform": [
+            "windows"
+          ],
+          "title": "XML Validation Report",
+          "name": "xml_validation_report_flavour",
+          "desc": "Generate a PDF validation report in XML format",
+          "program": "run.cmd --flavour \"${flavour}\" --format xml --input \"${input_pdf}\" --output \"${output_xml}\""
+        },
+        {
+          "platform": [
+            "debian",
+            "macos"
+          ],
+          "title": "XML Validation Report with profile",
+          "name": "xml_validation_report_profile",
+          "desc": "Generate a PDF validation report with profile in XML format",
+          "program": "run.sh --profile \"${profile}\" --format xml --input \"${input_pdf}\" --output \"${output_xml}\""
+        },
+        {
+          "platform": [
+            "windows"
+          ],
+          "title": "XML Validation Report with profile",
+          "name": "xml_validation_report_profile",
+          "desc": "Generate a PDF validation report with profile in XML format",
+          "program": "run.cmd --profile \"${profile}\" --format xml --input \"${input_pdf}\" --output \"${output_xml}\""
+        }        
+      ],
+      "args": [
+        {
+          "title": "Validation Profile",
+          "name": "profile",
+          "desc": "Path to profile configuration file.",
+          "ext": "xml",
+          "type": "file_path",
+          "value": ""
+        },
+        {
+          "title": "Validation Profile",
+          "name": "flavour",
+          "desc": "Validation profile",
+          "type": "string",
+          "value": "ua1",
+          "set": [
+            {
+              "desc": "PDF/UA-1",
+              "value": "ua1"
+            },
+            {
+              "desc": "PDF/UA-2",
+              "value": "ua2"
+            }
+          ]
+        },
+        {
+          "name": "max_failures",
+          "desc": "Limit of checked fails. If fails reached limit, validation stops.",
+          "type": "int",
+          "value": "-1"
+        },
+        {
+          "name": "max_failures_displayed",
+          "desc": "Maximum fails to displayed. If -1, displayed all.",
+          "type": "int",
+          "value": "-1"
+        },
+        {
+          "name": "input_pdf",
+          "desc": "Path to PDF document you want to proccess",
+          "flags": 2,
+          "ext": "pdf",
+          "type": "file_path",
+          "value": ""
+        },
+        {
+          "name": "output_xml",
+          "desc": "Path to validation report output",
+          "flags": 4,
+          "ext": "xml",
+          "type": "file_path",
+          "value": ""
+        },
+        {
+          "name": "output_html",
+          "desc": "Path to validation report output",
+          "flags": 4,
+          "ext": "html",
+          "type": "file_path",
+          "value": ""
+        }
+      ]
+    }
+  ]
+}
