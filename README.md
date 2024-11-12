@@ -37,7 +37,7 @@ For more detailed information about the available command-line arguments, you ca
 docker run --rm pdfix/validation:latest --help
 ```
 
-## Run Vaudation using REST API
+## Run using REST API
 Comming soon. Please contact us.
 
 ### Exporting Configuration for Integration
