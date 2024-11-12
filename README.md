@@ -20,7 +20,7 @@ To use this Docker application, you will need to have Docker installed on your s
 
 To run the Docker container as a CLI, you need to share the folder with the PDF files you wish to validate using the `-i` parameter. In this example, the current folder is used.
 
-First run will pull the docker image, which may take some time. Make your own image for more advanced use.
+The first run will pull the docker image, which may take some time. Make your own image for more advanced use.
 
 ```
 docker run -v $(pwd):/data --rm -w /data/ pdfix/validation:latest validate -i <input>.pdf
@@ -37,7 +37,7 @@ For more detailed information about the available command-line arguments, you ca
 docker run --rm pdfix/validation:latest --help
 ```
 
-## Run OCR using REST API
+## Run Vaudation using REST API
 Comming soon. Please contact us.
 
 ### Exporting Configuration for Integration
