@@ -47,12 +47,60 @@
           "value": ""
         },
         {
-          "title": "Validation Profile",
+          "title": "Validation flavour name",
           "name": "flavour",
-          "desc": "Validation profile",
+          "desc": "Flavour name",
           "type": "string",
           "value": "ua1",
           "set": [
+            {
+              "desc": "Automatic",
+              "value": "0"
+            },
+            {
+              "desc": "PDF/A-1A",
+              "value": "1a"
+            },
+            {
+              "desc": "PDF/A-1B",
+              "value": "1b"
+            },
+            {
+              "desc": "PDF/A-2A",
+              "value": "2a"
+            },
+            {
+              "desc": "PDF/A-2B",
+              "value": "2b"
+            },
+            {
+              "desc": "PDF/A-2U",
+              "value": "2u"
+            },
+            {
+              "desc": "PDF/A-3A",
+              "value": "3a"
+            },
+            {
+              "desc": "PDF/A-3B",
+              "value": "3b"
+            },
+            {
+              "desc": "PDF/A-3U",
+              "value": "3u"
+            },
+            {
+              "desc": "PDF/A-4",
+              "value": "4"
+            },
+            {
+              "desc": "PDF/A-4E",
+              "value": "4e"
+            },
+            {
+              "desc": "PDF/A-4F",
+              "value": "4f"
+            },
             {
               "desc": "PDF/UA-1",
               "value": "ua1"
@@ -60,7 +108,7 @@
             {
               "desc": "PDF/UA-2",
               "value": "ua2"
-            }
+            }           
           ]
         },
         {
