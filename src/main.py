@@ -5,6 +5,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+
 def get_config(path: str) -> None:
     if path is None:
         with open(
@@ -139,7 +140,10 @@ def main():
                 command = [
                     "java",
                     "-jar",
-                    os.path.join(Path(__file__).parent.absolute(), "../res/greenfield-apps-1.27.0-SNAPSHOT.jar"),
+                    os.path.join(
+                        Path(__file__).parent.absolute(),
+                        "../res/greenfield-apps-1.27.0-SNAPSHOT.jar",
+                    ),
                     "--maxfailuresdisplayed",
                     str(args.maxfailuresdisplayed),
                     "--format",
