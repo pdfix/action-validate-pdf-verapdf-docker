@@ -92,6 +92,11 @@ def main():
         type=str,
         help="Path to the validation profile",
     )
+    pars_validate.add_argument(
+        "--flavour",
+        type=str,
+        help="Flavour name",
+    )
 
     pars_validate.add_argument(
         "--maxfailuresdisplayed",
@@ -144,6 +149,9 @@ def main():
                 if args.profile:
                     command.append("--profile")
                     command.append(args.profile)
+                if args.flavour:
+                    command.append("--flavour")
+                    command.append(args.flavour)
 
                 command.append(args.input)
 
