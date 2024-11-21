@@ -25,6 +25,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY src/ /usr/validation/src/
 # res contains the VeraPDF CLI build
 COPY res/ /usr/validation/res/
+COPY config.json /usr/validation/
 
 
 ENTRYPOINT ["/usr/validation/venv/bin/python3", "/usr/validation/src/main.py"]
