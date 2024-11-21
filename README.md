@@ -1,6 +1,6 @@
-# PDF Validation Docker App using VeraPDF
+# veraPDF Validation
 
-This Docker application is designed to validate PDF files for compliance with the PDF/A standard using VeraPDF. It allows users to easily perform PDF validation with customizable options and can be executed via command-line arguments.
+This Docker image includes the veraPDF software that validates all PDF/A and PDF/UA parts & conformance levels. Users can define further checks in order to enforce institutional policy.
 
 ## Table of Contents
 
