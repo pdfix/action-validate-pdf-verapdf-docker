@@ -20,7 +20,7 @@
           "title": "HTML Validation Report",
           "name": "html_validation_report_flavour",
           "desc": "Generate a PDF validation report in HTML format",
-          "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/verapdf-validation:latest validate --flavour \"${flavour}\" --format html --input \"${input_pdf}\" --output \"${output_html}\""
+          "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/verapdf-validation:latest validate --flavour \"${flavour}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\""
         },
         {
           "platform": [
