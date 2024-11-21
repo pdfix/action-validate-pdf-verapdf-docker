@@ -1,9 +1,9 @@
 {
   "actions": [
     {
-      "title": "PDF/UA Validation VeraPDF",
-      "name": "validation_report",
-      "desc": "An action that validates PDFs using veraPDF, the industry-supported open-source PDF/UA validator, and saves results as HTML, XML, or JSON reports. This PDF Accessibility Checker allows users to easily perform PDF validation with customizable validation profiles.",
+      "title": "veraPDF Validation",
+      "name": "verapdf_validation",
+      "desc": "veraPDF software will validate all PDF/A parts & conformance levels. Users can define further checks in order to enforce institutional policy",
       "icon": "bug_report",
       "version": {
         "major": 1,
@@ -32,7 +32,7 @@
           "program": "run.cmd --flavour \"${flavour}\" --format html --input \"${input_pdf}\" --output \"${output_html}\""
         },
         {
-          "platform": [
+          "Platform": [
             "debian",
             "macos"
           ],
