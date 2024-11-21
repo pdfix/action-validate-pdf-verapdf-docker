@@ -20,7 +20,7 @@
           "title": "HTML Validation Report",
           "name": "html_validation_report_flavour",
           "desc": "Generate a PDF validation report in HTML format",
-          "program": "run.sh --flavour \"${flavour}\" --format html --input \"${input_pdf}\" --output \"${output_html}\""
+          "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/verapdf-validation:latest validate --flavour \"${flavour}\" --format html --input \"${input_pdf}\" --output \"${output_html}\""
         },
         {
           "platform": [
@@ -29,7 +29,7 @@
           "title": "HTML Validation Report",
           "name": "html_validation_report_flavour",
           "desc": "Generate a PDF validation report in HTML format",
-          "program": "run.cmd --flavour \"${flavour}\" --format html --input \"${input_pdf}\" --output \"${output_html}\""
+          "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/verapdf-validation:latest validate --flavour \"${flavour}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\""
         },
         {
           "Platform": [
@@ -39,7 +39,7 @@
           "title": "HTML Validation Report with profile",
           "name": "html_validation_report_profile",
           "desc": "Generate a PDF validation report with profile in HTML format",
-          "program": "run.sh --profile \"${profile}\" --format html --input \"${input_pdf}\" --output \"${output_html}\""
+          "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/verapdf-validation:latest validate --profile \"${profile}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\""
         },
         {
           "platform": [
@@ -48,7 +48,7 @@
           "title": "HTML Validation Report with profile",
           "name": "html_validation_report_profile",
           "desc": "Generate a PDF validation report with profile in HTML format",
-          "program": "run.cmd --profile \"${profile}\" --format html --input \"${input_pdf}\" --output \"${output_html}\""
+          "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/verapdf-validation:latest validate --profile \"${profile}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\""
         },
         {
           "platform": [
@@ -58,7 +58,7 @@
           "title": "XML Validation Report",
           "name": "xml_validation_report_flavour",
           "desc": "Generate a PDF validation report in XML format",
-          "program": "run.sh --flavour \"${flavour}\" --format xml --input \"${input_pdf}\" --output \"${output_xml}\""
+          "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/verapdf-validation:latest validate --flavour \"${flavour}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\""
         },
         {
           "platform": [
@@ -67,7 +67,7 @@
           "title": "XML Validation Report",
           "name": "xml_validation_report_flavour",
           "desc": "Generate a PDF validation report in XML format",
-          "program": "run.cmd --flavour \"${flavour}\" --format xml --input \"${input_pdf}\" --output \"${output_xml}\""
+          "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/verapdf-validation:latest validate --flavour \"${flavour}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\""
         },
         {
           "platform": [
@@ -77,7 +77,7 @@
           "title": "XML Validation Report with profile",
           "name": "xml_validation_report_profile",
           "desc": "Generate a PDF validation report with profile in XML format",
-          "program": "run.sh --profile \"${profile}\" --format xml --input \"${input_pdf}\" --output \"${output_xml}\""
+          "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/verapdf-validation:latest validate --profile \"${profile}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\""
         },
         {
           "platform": [
@@ -86,7 +86,7 @@
           "title": "XML Validation Report with profile",
           "name": "xml_validation_report_profile",
           "desc": "Generate a PDF validation report with profile in XML format",
-          "program": "run.cmd --profile \"${profile}\" --format xml --input \"${input_pdf}\" --output \"${output_xml}\""
+          "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/verapdf-validation:latest validate --profile \"${profile}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\""
         }        
       ],
       "args": [
