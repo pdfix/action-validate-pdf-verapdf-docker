@@ -10,7 +10,7 @@ on:
 
 env:
   DOCKER_HUB_NAMESPACE: pdfix
-  DOCKER_HUB_REPOSITORY: verapdf-validation
+  DOCKER_HUB_REPOSITORY: validate-pdf-verapdf
 
 jobs:
   push_to_registry:
