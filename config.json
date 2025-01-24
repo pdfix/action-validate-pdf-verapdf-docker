@@ -9,25 +9,25 @@
       "category": "Validation",
       "configurations": [
         {
-          "title": "Generate HTML Validation Report",
+          "title": "Generate veraPDF HTML Report Docker",
           "name": "html_validation_report_flavour",
           "desc": "Generate a PDF validation report in HTML format",
           "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\""
         },
         {
-          "title": "Generate HTML Validation Report with profile",
+          "title": "Generate veraPDF HTML Report Docker",
           "name": "html_validation_report_profile",
           "desc": "Generate a PDF validation report with profile in HTML format",
           "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --profile \"/data/${profile}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\""
         },
         {
-          "title": "Generate XML Validation Report",
+          "title": "Generate veraPDF XML Report Docker",
           "name": "xml_validation_report_flavour",
           "desc": "Generate a PDF validation report in XML format",
           "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\""
         },
         {
-          "title": "Generate XML Validation Report with profile",
+          "title": "Generate veraPDF XML Report Docker",
           "name": "xml_validation_report_profile",
           "desc": "Generate a PDF validation report with profile in XML format",
           "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --profile \"/data/${profile}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\""
