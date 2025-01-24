@@ -4,9 +4,9 @@
       "title": "veraPDF Validation",
       "name": "verapdf_validation",
       "desc": "veraPDF software will validate all PDF/A parts & conformance levels. Users can define further checks in order to enforce institutional policy",
-      "icon": "bug_report",
+      "icon": "verapdf",
       "version": "v1.0.0",
-      "category": "Validation",
+      "category": "Validation VeraPDF",
       "configurations": [
         {
           "title": "HTML Validation Report",
