@@ -6,28 +6,28 @@
       "desc": "veraPDF software will validate all PDF/A parts & conformance levels. Users can define further checks in order to enforce institutional policy",
       "icon": "verapdf",
       "version": "v1.0.0",
-      "category": "Validation VeraPDF",
+      "category": "Validation",
       "configurations": [
         {
-          "title": "HTML Validation Report",
+          "title": "Generate HTML Validation Report",
           "name": "html_validation_report_flavour",
           "desc": "Generate a PDF validation report in HTML format",
           "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\""
         },
         {
-          "title": "HTML Validation Report with profile",
+          "title": "Generate HTML Validation Report with profile",
           "name": "html_validation_report_profile",
           "desc": "Generate a PDF validation report with profile in HTML format",
           "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --profile \"/data/${profile}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\""
         },
         {
-          "title": "XML Validation Report",
+          "title": "Generate XML Validation Report",
           "name": "xml_validation_report_flavour",
           "desc": "Generate a PDF validation report in XML format",
           "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\""
         },
         {
-          "title": "XML Validation Report with profile",
+          "title": "Generate XML Validation Report with profile",
           "name": "xml_validation_report_profile",
           "desc": "Generate a PDF validation report with profile in XML format",
           "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --profile \"/data/${profile}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\""
