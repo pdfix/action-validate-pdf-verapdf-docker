@@ -1,149 +1,228 @@
 {
-  "actions": [
-    {
-      "title": "veraPDF Validation",
-      "name": "verapdf_validation",
-      "desc": "veraPDF software will validate all PDF/A parts & conformance levels. Users can define further checks in order to enforce institutional policy",
-      "icon": "verapdf",
-      "version": "v1.0.0",
-      "category": "Validation",
-      "configurations": [
+    "actions": [
         {
-          "title": "Generate veraPDF HTML Report Docker",
-          "name": "html_validation_report_flavour",
-          "desc": "Generate a PDF validation report in HTML format",
-          "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\""
+            "title": "Generate veraPDF HTML Validation Report",
+            "name": "verapdf_html_validation_report",
+            "desc": "Generate a PDF validation report in HTML format",
+            "icon": "verapdf",
+            "version": "v1.0.0",
+            "category": "Validation",
+            "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --profile \"/data/${profile}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\"",
+            "args": [
+                {
+                    "title": "Validation Profile",
+                    "name": "profile",
+                    "desc": "Path to profile configuration file.",
+                    "ext": "xml",
+                    "type": "file_path",
+                    "value": ""
+                },
+                {
+                    "title": "Validation flavour name",
+                    "name": "flavour",
+                    "desc": "Flavour name",
+                    "type": "string",
+                    "value": "ua1",
+                    "set": [
+                        {
+                            "desc": "Automatic",
+                            "value": "0"
+                        },
+                        {
+                            "desc": "PDF/A-1A",
+                            "value": "1a"
+                        },
+                        {
+                            "desc": "PDF/A-1B",
+                            "value": "1b"
+                        },
+                        {
+                            "desc": "PDF/A-2A",
+                            "value": "2a"
+                        },
+                        {
+                            "desc": "PDF/A-2B",
+                            "value": "2b"
+                        },
+                        {
+                            "desc": "PDF/A-2U",
+                            "value": "2u"
+                        },
+                        {
+                            "desc": "PDF/A-3A",
+                            "value": "3a"
+                        },
+                        {
+                            "desc": "PDF/A-3B",
+                            "value": "3b"
+                        },
+                        {
+                            "desc": "PDF/A-3U",
+                            "value": "3u"
+                        },
+                        {
+                            "desc": "PDF/A-4",
+                            "value": "4"
+                        },
+                        {
+                            "desc": "PDF/A-4E",
+                            "value": "4e"
+                        },
+                        {
+                            "desc": "PDF/A-4F",
+                            "value": "4f"
+                        },
+                        {
+                            "desc": "PDF/UA-1",
+                            "value": "ua1"
+                        },
+                        {
+                            "desc": "PDF/UA-2",
+                            "value": "ua2"
+                        }
+                    ]
+                },
+                {
+                    "name": "max_failures",
+                    "desc": "Limit of checked fails. If fails reached limit, validation stops.",
+                    "type": "int",
+                    "value": "-1"
+                },
+                {
+                    "name": "max_failures_displayed",
+                    "desc": "Maximum fails to displayed. If -1, displayed all.",
+                    "type": "int",
+                    "value": "-1"
+                },
+                {
+                    "name": "input_pdf",
+                    "desc": "Path to PDF document you want to proccess",
+                    "flags": 2,
+                    "ext": "pdf",
+                    "type": "file_path",
+                    "value": ""
+                },
+                {
+                    "name": "output_html",
+                    "desc": "Path to validation report output",
+                    "flags": 4,
+                    "ext": "html",
+                    "type": "file_path",
+                    "value": ""
+                }
+            ]
         },
         {
-          "title": "Generate veraPDF HTML Report Docker",
-          "name": "html_validation_report_profile",
-          "desc": "Generate a PDF validation report with profile in HTML format",
-          "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --profile \"/data/${profile}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\""
-        },
-        {
-          "title": "Generate veraPDF XML Report Docker",
-          "name": "xml_validation_report_flavour",
-          "desc": "Generate a PDF validation report in XML format",
-          "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\""
-        },
-        {
-          "title": "Generate veraPDF XML Report Docker",
-          "name": "xml_validation_report_profile",
-          "desc": "Generate a PDF validation report with profile in XML format",
-          "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --profile \"/data/${profile}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\""
+            "title": "Generate veraPDF XML Validation Report",
+            "name": "verapdf_xml_validation_report",
+            "desc": "Generate a PDF validation report in XML format",
+            "icon": "verapdf",
+            "version": "v1.0.0",
+            "category": "Validation",
+            "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --profile \"/data/${profile}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\"",
+            "args": [
+                {
+                    "title": "Validation Profile",
+                    "name": "profile",
+                    "desc": "Path to profile configuration file.",
+                    "ext": "xml",
+                    "type": "file_path",
+                    "value": ""
+                },
+                {
+                    "title": "Validation flavour name",
+                    "name": "flavour",
+                    "desc": "Flavour name",
+                    "type": "string",
+                    "value": "ua1",
+                    "set": [
+                        {
+                            "desc": "Automatic",
+                            "value": "0"
+                        },
+                        {
+                            "desc": "PDF/A-1A",
+                            "value": "1a"
+                        },
+                        {
+                            "desc": "PDF/A-1B",
+                            "value": "1b"
+                        },
+                        {
+                            "desc": "PDF/A-2A",
+                            "value": "2a"
+                        },
+                        {
+                            "desc": "PDF/A-2B",
+                            "value": "2b"
+                        },
+                        {
+                            "desc": "PDF/A-2U",
+                            "value": "2u"
+                        },
+                        {
+                            "desc": "PDF/A-3A",
+                            "value": "3a"
+                        },
+                        {
+                            "desc": "PDF/A-3B",
+                            "value": "3b"
+                        },
+                        {
+                            "desc": "PDF/A-3U",
+                            "value": "3u"
+                        },
+                        {
+                            "desc": "PDF/A-4",
+                            "value": "4"
+                        },
+                        {
+                            "desc": "PDF/A-4E",
+                            "value": "4e"
+                        },
+                        {
+                            "desc": "PDF/A-4F",
+                            "value": "4f"
+                        },
+                        {
+                            "desc": "PDF/UA-1",
+                            "value": "ua1"
+                        },
+                        {
+                            "desc": "PDF/UA-2",
+                            "value": "ua2"
+                        }
+                    ]
+                },
+                {
+                    "name": "max_failures",
+                    "desc": "Limit of checked fails. If fails reached limit, validation stops.",
+                    "type": "int",
+                    "value": "-1"
+                },
+                {
+                    "name": "max_failures_displayed",
+                    "desc": "Maximum fails to displayed. If -1, displayed all.",
+                    "type": "int",
+                    "value": "-1"
+                },
+                {
+                    "name": "input_pdf",
+                    "desc": "Path to PDF document you want to proccess",
+                    "flags": 2,
+                    "ext": "pdf",
+                    "type": "file_path",
+                    "value": ""
+                },
+                {
+                    "name": "output_xml",
+                    "desc": "Path to validation report output",
+                    "flags": 4,
+                    "ext": "xml",
+                    "type": "file_path",
+                    "value": ""
+                }
+            ]
         }
-      ],
-      "args": [
-        {
-          "title": "Validation Profile",
-          "name": "profile",
-          "desc": "Path to profile configuration file.",
-          "ext": "xml",
-          "type": "file_path",
-          "value": ""
-        },
-        {
-          "title": "Validation flavour name",
-          "name": "flavour",
-          "desc": "Flavour name",
-          "type": "string",
-          "value": "ua1",
-          "set": [
-            {
-              "desc": "Automatic",
-              "value": "0"
-            },
-            {
-              "desc": "PDF/A-1A",
-              "value": "1a"
-            },
-            {
-              "desc": "PDF/A-1B",
-              "value": "1b"
-            },
-            {
-              "desc": "PDF/A-2A",
-              "value": "2a"
-            },
-            {
-              "desc": "PDF/A-2B",
-              "value": "2b"
-            },
-            {
-              "desc": "PDF/A-2U",
-              "value": "2u"
-            },
-            {
-              "desc": "PDF/A-3A",
-              "value": "3a"
-            },
-            {
-              "desc": "PDF/A-3B",
-              "value": "3b"
-            },
-            {
-              "desc": "PDF/A-3U",
-              "value": "3u"
-            },
-            {
-              "desc": "PDF/A-4",
-              "value": "4"
-            },
-            {
-              "desc": "PDF/A-4E",
-              "value": "4e"
-            },
-            {
-              "desc": "PDF/A-4F",
-              "value": "4f"
-            },
-            {
-              "desc": "PDF/UA-1",
-              "value": "ua1"
-            },
-            {
-              "desc": "PDF/UA-2",
-              "value": "ua2"
-            }           
-          ]
-        },
-        {
-          "name": "max_failures",
-          "desc": "Limit of checked fails. If fails reached limit, validation stops.",
-          "type": "int",
-          "value": "-1"
-        },
-        {
-          "name": "max_failures_displayed",
-          "desc": "Maximum fails to displayed. If -1, displayed all.",
-          "type": "int",
-          "value": "-1"
-        },
-        {
-          "name": "input_pdf",
-          "desc": "Path to PDF document you want to proccess",
-          "flags": 2,
-          "ext": "pdf",
-          "type": "file_path",
-          "value": ""
-        },
-        {
-          "name": "output_xml",
-          "desc": "Path to validation report output",
-          "flags": 4,
-          "ext": "xml",
-          "type": "file_path",
-          "value": ""
-        },
-        {
-          "name": "output_html",
-          "desc": "Path to validation report output",
-          "flags": 4,
-          "ext": "html",
-          "type": "file_path",
-          "value": ""
-        }
-      ]
-    }
-  ]
+    ]
 }
