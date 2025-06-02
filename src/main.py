@@ -68,13 +68,10 @@ def run_validation_subcommand(args) -> None:
     input_file = args.input
 
     if not os.path.isfile(input_file):
-        print(f"Error: The input file '{input_file}' does not exist.", file=sys.stderr)
-        sys.exit(1)
-        return
+        raise Exception(f"Error: The input file '{input_file}' does not exist.")
 
     if not input_file.lower().endswith(".pdf"):
-        print("Input file must be PDF", file=sys.stderr)
-        sys.exit(1)
+        raise Exception("Input file must be PDF")
 
     output_file: Optional[str] = args.output
     maxfailuresdisplayed: int = args.maxfailuresdisplayed
@@ -136,12 +133,12 @@ def run_validation(
             print(stderr, file=sys.stderr)
 
     except Exception as e:
-        print(f"Failed to run validation: {e}", file=sys.stderr)
-        sys.exit(1)
+        raise Exception(f"Failed to run validation: {e}")
 
 
 def run_subprocess(command: list) -> tuple:
-    """Execute a shell command and capture its output and return code.
+    """
+    Execute a shell command and capture its output and return code.
 
     This function runs the validation as shell command using the `subprocess.Popen`
     method, captures the standard output (stdout), standard error (stderr),
@@ -186,6 +183,7 @@ def main():
         False,
         "Output to save the config JSON file. Application output is used if not provided.",
     )
+    config_subparser.set_defaults(func=run_config_subcommand)
 
     # Validate subcommand
     validate_subparser = subparsers.add_parser(
@@ -194,7 +192,7 @@ def main():
     )
     set_arguments(
         validate_subparser,
-        ["input", "output", "profile", "flavour", "maxfailuresdisplayed", "format"],
+        ["input", "output", "maxfailuresdisplayed", "format", "profile", "flavour"],
         True,
         "The output validation file",
     )
@@ -205,7 +203,7 @@ def main():
     except SystemExit as e:
         if e.code == 0:  # This happens when --help is used, exit gracefully
             sys.exit(0)
-        print("Failed to parse arguments. Please check the usage and try again.")
+        print("Failed to parse arguments. Please check the usage and try again.", file=sys.stderr)
         sys.exit(1)
 
     # Run subcommand
