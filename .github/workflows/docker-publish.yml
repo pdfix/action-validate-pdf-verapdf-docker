@@ -2,8 +2,8 @@ name: Build and Publish Docker Image
 
 on:
   push:
-    branches:
-      - master
+    # branches:
+    #   - master
     tags:
       - 'v*.*.*'  # Matches version tags like v1.0.0
   workflow_dispatch:
@@ -46,6 +46,9 @@ jobs:
             echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
           fi
 
+      - name: Update config.json version
+        run: chmod +x update_version.sh && ./update_version.sh ${{ env.tag }}
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
@@ -64,15 +67,13 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      # - name: Generate artifact attestation
-      #   uses: actions/attest-build-provenance@v1
-      #   with:
-      #     subject-name: index.docker.io/${{ env.DOCKER_HUB_NAMESPACE }}/${{ env.DOCKER_HUB_REPOSITORY }}:${{ env.tag }}
-      #     subject-digest: ${{ steps.push.outputs.digest }}
-      #     push-to-registry: true
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v4
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: ${{ env.DOCKER_HUB_NAMESPACE }}/${{ env.DOCKER_HUB_REPOSITORY }}
+
+      - name: Upload to FTP
+        run: |
+          curl -T config.json ftp.pdfix.net/update-service/v1/actions/${{ env.DOCKER_HUB_NAMESPACE }}/${{ env.DOCKER_HUB_REPOSITORY }}/config.json --user "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" --ftp-create-dirs

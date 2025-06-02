@@ -22,3 +22,9 @@ fi
 sed -i "s/latest/$1/g" config.json
 
 echo "Replaced all occurrences of 'latest' with '$1' in config.json."
+
+# Replace in config.json in "version" : "v0.0.0"
+# "v0.0.0" in with the provided argument
+sed -i "s|v0\.0\.0|$1|g" config.json
+
+echo "Replaced all occurrences of 'v0.0.0' with '$1' in config.json."

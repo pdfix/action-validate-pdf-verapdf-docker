@@ -1,11 +1,13 @@
 {
+    "name": "PDF Validation veraPDF",
+    "version": "v0.0.0",
     "actions": [
         {
             "title": "Generate veraPDF HTML Validation Report",
             "name": "verapdf_html_validation_report",
             "desc": "Generate a PDF validation report in HTML format",
             "icon": "verapdf",
-            "version": "v1.0.0",
+            "version": "v0.0.0",
             "category": "Validation",
             "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --profile \"/data/${profile}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\"",
             "args": [
@@ -117,7 +119,7 @@
             "name": "verapdf_xml_validation_report",
             "desc": "Generate a PDF validation report in XML format",
             "icon": "verapdf",
-            "version": "v1.0.0",
+            "version": "v0.0.0",
             "category": "Validation",
             "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --profile \"/data/${profile}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\"",
             "args": [
