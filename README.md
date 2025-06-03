@@ -47,7 +47,7 @@ docker run -v $(pwd):/data --rm pdfix/validation:latest config -o config.json
 ```
 
 ## License
-TBD...
+- veraPDF - https://verapdf.org/home/#licensing
 
 ## Help & Support
 To obtain a PDFix SDK license or report an issue please contact us at support@pdfix.net.
