@@ -198,21 +198,25 @@ def main():
     )
     validate_subparser.set_defaults(func=run_validation_subcommand)
 
+    # Parse arguments
     try:
         args = parser.parse_args()
     except SystemExit as e:
         if e.code == 0:  # This happens when --help is used, exit gracefully
             sys.exit(0)
         print("Failed to parse arguments. Please check the usage and try again.", file=sys.stderr)
-        sys.exit(1)
+        sys.exit(e.code)
 
-    # Run subcommand
-    try:
-        args.func(args)
-    except Exception as e:
-        print(traceback.format_exc(), file=sys.stderr)
-        print(f"Failed to run the program: {e}", file=sys.stderr)
-        sys.exit(1)
+    if hasattr(args, "func"):
+        # Run subcommand
+        try:
+            args.func(args)
+        except Exception as e:
+            print(traceback.format_exc(), file=sys.stderr)
+            print(f"Failed to run the program: {e}", file=sys.stderr)
+            sys.exit(1)
+    else:
+        parser.print_help()
 
 
 if __name__ == "__main__":
