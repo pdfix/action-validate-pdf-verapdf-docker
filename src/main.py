@@ -6,6 +6,8 @@ import traceback
 from pathlib import Path
 from typing import Optional
 
+from image_update import DockerImageContainerUpdateChecker
+
 
 def set_arguments(
     parser: argparse.ArgumentParser,
@@ -180,7 +182,6 @@ def main():
     set_arguments(
         config_subparser,
         ["output"],
-        False,
         "Output to save the config JSON file. Application output is used if not provided.",
     )
     config_subparser.set_defaults(func=run_config_subcommand)
@@ -193,7 +194,6 @@ def main():
     set_arguments(
         validate_subparser,
         ["input", "output", "maxfailuresdisplayed", "format", "profile", "flavour"],
-        True,
         "The output validation file",
     )
     validate_subparser.set_defaults(func=run_validation_subcommand)
@@ -206,6 +206,10 @@ def main():
             sys.exit(0)
         print("Failed to parse arguments. Please check the usage and try again.", file=sys.stderr)
         sys.exit(e.code)
+
+    # Update of docker image checker
+    update_checker = DockerImageContainerUpdateChecker()
+    update_checker.check_for_image_updates()
 
     if hasattr(args, "func"):
         # Run subcommand
