@@ -3,9 +3,9 @@
     "version": "v0.0.0",
     "actions": [
         {
-            "title": "Generate veraPDF HTML Validation Report",
-            "name": "pdfix_verapdf_html_validation_report",
-            "desc": "Generate a PDF validation report in HTML format",
+            "title": "Generate PDF Validation Report to HTML (veraPDF)",
+            "name": "pdfix_generate_pdf_validation_report_to_html_verapdf",
+            "desc": "Generate a PDF validation report in HTML format.",
             "icon": "verapdf",
             "version": "v0.0.0",
             "category": "Validation",
@@ -115,9 +115,9 @@
             ]
         },
         {
-            "title": "Generate veraPDF XML Validation Report",
-            "name": "pdfix_verapdf_xml_validation_report",
-            "desc": "Generate a PDF validation report in XML format",
+            "title": "Generate PDF Validation Report to XML (veraPDF)",
+            "name": "pdfix_generate_pdf_validation_report_to_xml_verapdf",
+            "desc": "Generate a PDF validation report in XML format.",
             "icon": "verapdf",
             "version": "v0.0.0",
             "category": "Validation",
