@@ -5,10 +5,11 @@
         {
             "title": "Generate PDF Validation Report to HTML (veraPDF)",
             "name": "pdfix_generate_pdf_validation_report_to_html_verapdf",
-            "desc": "Generate a PDF validation report in HTML format.",
-            "icon": "verapdf",
+            "desc": "Generate a PDF validation report in HTML format [Local]",
             "version": "v0.0.0",
+            "icon": "verapdf",
             "category": "Validation",
+            "local": "True",
             "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --profile \"/data/${profile}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\"",
             "args": [
                 {
@@ -117,10 +118,11 @@
         {
             "title": "Generate PDF Validation Report to XML (veraPDF)",
             "name": "pdfix_generate_pdf_validation_report_to_xml_verapdf",
-            "desc": "Generate a PDF validation report in XML format.",
-            "icon": "verapdf",
+            "desc": "Generate a PDF validation report in XML format [Local]",
             "version": "v0.0.0",
+            "icon": "verapdf",
             "category": "Validation",
+            "local": "True",
             "program": "docker run --platform linux/amd64 -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --profile \"/data/${profile}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\"",
             "args": [
                 {
