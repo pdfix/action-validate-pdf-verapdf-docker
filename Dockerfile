@@ -7,7 +7,7 @@ RUN apt-get update && \
     python3 \
     python3-pip \
     python3-venv \
-    openjdk-17-jre \
+    openjdk-21-jre \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
