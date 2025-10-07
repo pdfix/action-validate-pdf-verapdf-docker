@@ -86,18 +86,6 @@
                     ]
                 },
                 {
-                    "name": "max_failures",
-                    "desc": "Limit of checked fails. If fails reached limit, validation stops.",
-                    "type": "int",
-                    "value": "-1"
-                },
-                {
-                    "name": "max_failures_displayed",
-                    "desc": "Maximum fails to displayed. If -1, displayed all.",
-                    "type": "int",
-                    "value": "-1"
-                },
-                {
                     "name": "input_pdf",
                     "desc": "Path to PDF document you want to proccess",
                     "flags": 2,
@@ -197,18 +185,6 @@
                             "value": "ua2"
                         }
                     ]
-                },
-                {
-                    "name": "max_failures",
-                    "desc": "Limit of checked fails. If fails reached limit, validation stops.",
-                    "type": "int",
-                    "value": "-1"
-                },
-                {
-                    "name": "max_failures_displayed",
-                    "desc": "Maximum fails to displayed. If -1, displayed all.",
-                    "type": "int",
-                    "value": "-1"
                 },
                 {
                     "name": "input_pdf",
