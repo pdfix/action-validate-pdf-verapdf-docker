@@ -101,7 +101,15 @@
                     "type": "file_path",
                     "value": ""
                 }
-            ]
+            ],
+            "errors": {
+                "10": "Failed to parse arguments. Please check the usage and try again.",
+                "11": "Input file does not exists.",
+                "12": "Input file must be PDF document.",
+                "13": "Input file must be PDF document and output file must be XML.",
+                "14": "Input file must be PDF document and output file must be HTML.",
+                "30": "Validation failed."
+            }
         },
         {
             "title": "Validation Report in XML (veraPDF)",
@@ -202,7 +210,15 @@
                     "type": "file_path",
                     "value": ""
                 }
-            ]
+            ],
+            "errors": {
+                "10": "Failed to parse arguments. Please check the usage and try again.",
+                "11": "Input file does not exists.",
+                "12": "Input file must be PDF document.",
+                "13": "Input file must be PDF document and output file must be XML.",
+                "14": "Input file must be PDF document and output file must be HTML.",
+                "30": "Validation failed."
+            }
         }
     ]
 }

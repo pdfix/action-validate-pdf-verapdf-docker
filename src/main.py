@@ -7,6 +7,16 @@ import traceback
 from pathlib import Path
 from typing import Optional
 
+from exceptions import (
+    EC_ARG_GENERAL,
+    MESSAGE_ARG_GENERAL,
+    ArgumentInputMissingException,
+    ArgumentInputPdfException,
+    ArgumentInputPdfOutputHtmlException,
+    ArgumentInputPdfOutputXmlException,
+    ExpectedException,
+    ValidationFailed,
+)
 from image_update import DockerImageContainerUpdateChecker
 
 
@@ -71,16 +81,22 @@ def run_validation_subcommand(args) -> None:
     input_file = args.input
 
     if not os.path.isfile(input_file):
-        raise Exception(f"Error: The input file '{input_file}' does not exist.")
+        raise ArgumentInputMissingException()
 
     if not input_file.lower().endswith(".pdf"):
-        raise Exception("Input file must be PDF")
+        raise ArgumentInputPdfException()
 
     output_file: Optional[str] = args.output
     maxfailuresdisplayed: int = args.maxfailuresdisplayed
     format: str = args.format
     profile: Optional[str] = args.profile
     flavour: Optional[str] = args.flavour
+
+    if format == "xml" and (output_file is None or not output_file.lower().endswith(".xml")):
+        raise ArgumentInputPdfOutputXmlException()
+
+    if format == "html" and (output_file is None or not output_file.lower().endswith(".html")):
+        raise ArgumentInputPdfOutputHtmlException()
 
     returncode: int = run_validation(input_file, output_file, maxfailuresdisplayed, format, profile, flavour)
     sys.exit(returncode)
@@ -140,10 +156,14 @@ def run_validation(
         if stderr:
             print(stderr, file=sys.stderr)
 
+        # 0,1 are valid return codes (0 - no validation errors in document, 1 - there are validation errors in document)
+        if returncode > 1:
+            raise ValidationFailed()
+
         return returncode
 
-    except Exception as e:
-        raise Exception(f"Failed to run validation: {e}")
+    except Exception:
+        raise ValidationFailed()
 
 
 def run_subprocess(command: str) -> tuple[int, str, str]:
@@ -211,10 +231,11 @@ def main():
     try:
         args = parser.parse_args()
     except SystemExit as e:
-        if e.code == 0:  # This happens when --help is used, exit gracefully
-            sys.exit(0)
-        print("Failed to parse arguments. Please check the usage and try again.", file=sys.stderr)
-        sys.exit(e.code)
+        if e.code != 0:
+            print(MESSAGE_ARG_GENERAL, file=sys.stderr)
+            sys.exit(EC_ARG_GENERAL)
+        # This happens when --help is used, exit gracefully
+        sys.exit(0)
 
     if hasattr(args, "func"):
         # Check for updates only when help is not checked
@@ -226,10 +247,13 @@ def main():
         # Run subcommand
         try:
             args.func(args)
+        except ExpectedException as e:
+            print(e.message, file=sys.stderr)
+            sys.exit(e.error_code)
         except Exception as e:
             print(traceback.format_exc(), file=sys.stderr)
             print(f"Failed to run the program: {e}", file=sys.stderr)
-            sys.exit(1)
+            sys.exit(2)
         finally:
             # Make sure to let update thread finish before exiting
             update_thread.join()
