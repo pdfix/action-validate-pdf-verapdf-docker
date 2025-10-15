@@ -82,7 +82,8 @@ def run_validation_subcommand(args) -> None:
     profile: Optional[str] = args.profile
     flavour: Optional[str] = args.flavour
 
-    run_validation(input_file, output_file, maxfailuresdisplayed, format, profile, flavour)
+    returncode: int = run_validation(input_file, output_file, maxfailuresdisplayed, format, profile, flavour)
+    sys.exit(returncode)
 
 
 def run_validation(
@@ -92,7 +93,7 @@ def run_validation(
     format: str,
     profile: Optional[str],
     flavour: Optional[str],
-) -> None:
+) -> int:
     """
     Runs validation using veraPDF java program in subprocess.
 
@@ -103,6 +104,9 @@ def run_validation(
         format (str): Format of output like json, xml, ...
         profile (Optional[str]): Optional path to validation profile.
         flavour (Optional[str]): Optional flavour name.
+
+    Return:
+        Return code of validation process.
     """
     try:
         java_program_path = os.path.join(Path(__file__).parent.absolute(), "../res/greenfield-apps-1.27.0-SNAPSHOT.jar")
@@ -125,7 +129,7 @@ def run_validation(
         command_to_run = " ".join(command)
         command_to_run += f' "{input_file}"'
 
-        stdout, stderr = run_subprocess(command_to_run)
+        returncode, stdout, stderr = run_subprocess(command_to_run)
 
         if output_file:
             with open(output_file, "w+", encoding="utf-8") as out:
@@ -136,11 +140,13 @@ def run_validation(
         if stderr:
             print(stderr, file=sys.stderr)
 
+        return returncode
+
     except Exception as e:
         raise Exception(f"Failed to run validation: {e}")
 
 
-def run_subprocess(command: str) -> tuple:
+def run_subprocess(command: str) -> tuple[int, str, str]:
     """
     Execute a shell command and capture its output and return code.
 
@@ -153,6 +159,7 @@ def run_subprocess(command: str) -> tuple:
 
     Returns:
         A tuple containing:
+            - returncode (int): The return code of the command.
             - stdout (str): The standard output of the command.
             - stderr (str): The standard error of the command.
 
@@ -166,7 +173,7 @@ def run_subprocess(command: str) -> tuple:
     )
     stdout, stderr = process.communicate()
 
-    return stdout, stderr
+    return process.returncode, stdout, stderr
 
 
 def main():
