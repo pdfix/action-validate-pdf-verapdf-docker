@@ -10,6 +10,10 @@
             "icon": "verapdf",
             "category": "Validation",
             "local": "True",
+            "returnCodes": [
+                0,
+                1
+            ],
             "program": "docker run -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --profile \"/data/${profile}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\"",
             "args": [
                 {
@@ -119,6 +123,10 @@
             "icon": "verapdf",
             "category": "Validation",
             "local": "True",
+            "returnCodes": [
+                0,
+                1
+            ],
             "program": "docker run -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --profile \"/data/${profile}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\"",
             "args": [
                 {
