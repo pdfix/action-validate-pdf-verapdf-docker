@@ -41,7 +41,6 @@ sed -i.bak "s/:latest/:${version}/g" config.json && rm config.json.bak
 echo "Replaced all occurrences of 'latest' with '${version}' in config.json."
 
 
-
 # README.md
 # Check if README.md exists
 if [ ! -f "README.md" ]; then
