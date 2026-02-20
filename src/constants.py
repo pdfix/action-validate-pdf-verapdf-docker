@@ -1,2 +1,4 @@
 CONFIG_FILE = "config.json"
-DOCKER_IMAGE = "pdfix/validate-pdf-verapdf"
+DOCKER_NAMESPACE = "pdfix"
+DOCKER_REPOSITORY = "validate-pdf-verapdf"
+DOCKER_IMAGE = f"{DOCKER_NAMESPACE}/{DOCKER_REPOSITORY}"
