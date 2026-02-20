@@ -14,7 +14,7 @@
                 0,
                 1
             ],
-            "program": "docker run -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --profile \"/data/${profile}\" --format html --input \"/data/${input_pdf}\" --output \"/data/${output_html}\"",
+            "program": "docker run -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --profile \"/data/${profile}\" --format html --maxfailures \"${max_failures}\" --maxfailuresdisplayed \"${max_failures_displayed}\" --pass \"${pass}\" --input \"/data/${input_pdf}\" --output \"/data/${output_html}\"",
             "args": [
                 {
                     "title": "Validation Profile",
@@ -104,6 +104,27 @@
                     "ext": "html",
                     "type": "file_path",
                     "value": ""
+                },
+                {
+                    "title": "Show successful checks",
+                    "name": "pass",
+                    "desc": "Successful checks will be displayed in output",
+                    "type": "bool",
+                    "value": true
+                },
+                {
+                    "title": "Maximum failures",
+                    "name": "max_failures",
+                    "desc": "How many failed checks to perform. For -1 for unlimited.",
+                    "type": "int",
+                    "value": "-1"
+                },
+                {
+                    "title": "Maximum failures displayed",
+                    "name": "max_failures_displayed",
+                    "desc": "How many failed checks per rule to show. For -1 for unlimited.",
+                    "type": "int",
+                    "value": "-1"
                 }
             ],
             "errors": {
@@ -127,7 +148,7 @@
                 0,
                 1
             ],
-            "program": "docker run -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --profile \"/data/${profile}\" --format xml --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\"",
+            "program": "docker run -v \"${working_directory}:/data\" --rm pdfix/validate-pdf-verapdf:latest validate --flavour \"${flavour}\" --profile \"/data/${profile}\" --format xml --maxfailures \"${max_failures}\" --maxfailuresdisplayed \"${max_failures_displayed}\" --pass \"${pass}\"  --input \"/data/${input_pdf}\" --output \"/data/${output_xml}\"",
             "args": [
                 {
                     "title": "Validation Profile",
@@ -217,6 +238,27 @@
                     "ext": "xml",
                     "type": "file_path",
                     "value": ""
+                },
+                {
+                    "title": "Show successful checks",
+                    "name": "pass",
+                    "desc": "Successful checks will be displayed in output",
+                    "type": "bool",
+                    "value": true
+                },
+                {
+                    "title": "Maximum failures",
+                    "name": "max_failures",
+                    "desc": "How many failed checks to perform. For -1 for unlimited.",
+                    "type": "int",
+                    "value": "-1"
+                },
+                {
+                    "title": "Maximum failures displayed",
+                    "name": "max_failures_displayed",
+                    "desc": "How many failed checks per rule to show. For -1 for unlimited.",
+                    "type": "int",
+                    "value": "-1"
                 }
             ],
             "errors": {

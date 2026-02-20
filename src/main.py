@@ -5,7 +5,7 @@ import sys
 import threading
 import traceback
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
 from constants import CONFIG_FILE
 from exceptions import (
@@ -37,7 +37,7 @@ def set_arguments(
     for name in names:
         match name:
             case "flavour":
-                parser.add_argument("--flavour", type=str, help="Flavour name")
+                parser.add_argument("--flavour", type=str, default="ua1", help="Validation Profile flavour")
             case "format":
                 parser.add_argument(
                     "--format",
@@ -48,12 +48,49 @@ def set_arguments(
                 )
             case "input":
                 parser.add_argument("--input", "-i", type=str, required=True, help="The input PDF file")
+            case "maxfailures":
+                parser.add_argument("--maxfailures", type=int, default=-1, help="Maximum amount of failed checks")
             case "maxfailuresdisplayed":
-                parser.add_argument("--maxfailuresdisplayed", type=int, default=-1, help="Max failures displayed")
+                parser.add_argument(
+                    "--maxfailuresdisplayed",
+                    type=int,
+                    default=-1,
+                    help="Maximum amount of failed checks displayed for each rule",
+                )
             case "output":
                 parser.add_argument("--output", "-o", type=str, help=output_help)
+            case "pass":
+                parser.add_argument(
+                    "--pass",
+                    dest="pass_flag",
+                    nargs="?",
+                    const=True,
+                    type=bool,
+                    default=False,
+                    help="Shows successful validation checks",
+                )
             case "profile":
                 parser.add_argument("--profile", type=str, help="Path to the validation profile")
+
+
+def str2bool(value: Any) -> bool:
+    """
+    Helper function to convert argument to boolean.
+
+    Args:
+        value (Any): The value to convert to boolean.
+
+    Returns:
+        Parsed argument as boolean.
+    """
+    if isinstance(value, bool):
+        return value
+    if value.lower() in ("yes", "true", "t", "1"):
+        return True
+    elif value.lower() in ("no", "false", "f", "0"):
+        return False
+    else:
+        return False
 
 
 def run_config_subcommand(args) -> None:
@@ -88,10 +125,12 @@ def run_validation_subcommand(args) -> None:
         raise ArgumentInputPdfException()
 
     output_file: Optional[str] = args.output
-    maxfailuresdisplayed: int = args.maxfailuresdisplayed
-    format: str = args.format
-    profile: Optional[str] = args.profile
     flavour: Optional[str] = args.flavour
+    format: str = args.format
+    maxfailures: int = args.maxfailures
+    maxfailuresdisplayed: int = args.maxfailuresdisplayed
+    pass_flag: bool = args.pass_flag
+    profile: Optional[str] = args.profile
 
     if format == "xml" and (output_file is None or not output_file.lower().endswith(".xml")):
         raise ArgumentInputPdfOutputXmlException()
@@ -99,17 +138,21 @@ def run_validation_subcommand(args) -> None:
     if format == "html" and (output_file is None or not output_file.lower().endswith(".html")):
         raise ArgumentInputPdfOutputHtmlException()
 
-    returncode: int = run_validation(input_file, output_file, maxfailuresdisplayed, format, profile, flavour)
+    returncode: int = run_validation(
+        input_file, output_file, flavour, format, maxfailures, maxfailuresdisplayed, pass_flag, profile
+    )
     sys.exit(returncode)
 
 
 def run_validation(
     input_file: str,
     output_file: Optional[str],
-    maxfailuresdisplayed: int,
-    format: str,
-    profile: Optional[str],
     flavour: Optional[str],
+    format: str,
+    maxfailures: int,
+    maxfailuresdisplayed: int,
+    pass_flag: bool,
+    profile: Optional[str],
 ) -> int:
     """
     Runs validation using veraPDF java program in subprocess.
@@ -117,10 +160,12 @@ def run_validation(
     Args:
         input_file (str): Path to input PDF file.
         output_file (Optional[str]): Either path to output file or None when output goes to standart output.
-        maxfailuresdisplayed (str): Max failures displayed
-        format (str): Format of output like json, xml, ...
-        profile (Optional[str]): Optional path to validation profile.
         flavour (Optional[str]): Optional flavour name.
+        format (str): Format of output like json, xml, ...
+        maxfailures (int): Maximum amount of failed checks.
+        maxfailuresdisplayed (int): Maximum amount of failed checks displayed for each rule.
+        pass_flag (bool): Successful checks will be displayed in output.
+        profile (Optional[str]): Optional path to validation profile.
 
     Return:
         Return code of validation process.
@@ -133,6 +178,8 @@ def run_validation(
             "java",
             "-jar",
             java_program_path,
+            "--maxfailures",
+            str(maxfailures),
             "--maxfailuresdisplayed",
             str(maxfailuresdisplayed),
             "--format",
@@ -144,6 +191,8 @@ def run_validation(
         if flavour:
             command.append("--flavour")
             command.append(flavour)
+        if pass_flag:
+            command.append("--pass")
 
         command_to_run: str = " ".join(command)
         command_to_run += f' "{input_file}"'
@@ -225,7 +274,7 @@ def main():
     )
     set_arguments(
         validate_subparser,
-        ["input", "output", "maxfailuresdisplayed", "format", "profile", "flavour"],
+        ["input", "output", "flavour", "format", "maxfailures", "maxfailuresdisplayed", "pass", "profile"],
         "The output validation file",
     )
     validate_subparser.set_defaults(func=run_validation_subcommand)
