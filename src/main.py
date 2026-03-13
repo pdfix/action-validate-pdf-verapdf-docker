@@ -7,6 +7,8 @@ import traceback
 from pathlib import Path
 from typing import Any, Optional
 
+from tqdm import tqdm
+
 from constants import CONFIG_FILE
 from exceptions import (
     EC_ARG_GENERAL,
@@ -170,52 +172,61 @@ def run_validation(
     Return:
         Return code of validation process.
     """
-    try:
-        java_program_path: str = (
-            Path(__file__).parent.parent.joinpath("res/greenfield-apps-1.27.0-SNAPSHOT.jar").as_posix()
-        )
-        command: list[str] = [
-            "java",
-            "-jar",
-            java_program_path,
-            "--maxfailures",
-            str(maxfailures),
-            "--maxfailuresdisplayed",
-            str(maxfailuresdisplayed),
-            "--format",
-            format,
-        ]
-        if profile:
-            command.append("--profile")
-            command.append(profile)
-        if flavour:
-            command.append("--flavour")
-            command.append(flavour)
-        if pass_flag:
-            command.append("--pass")
+    with tqdm(total=100) as progress_bar:
+        progress_bar.set_description("Validating")
 
-        command_to_run: str = " ".join(command)
-        command_to_run += f' "{input_file}"'
+        try:
+            java_program_path: str = (
+                Path(__file__).parent.parent.joinpath("res/greenfield-apps-1.27.0-SNAPSHOT.jar").as_posix()
+            )
+            command: list[str] = [
+                "java",
+                "-jar",
+                java_program_path,
+                "--maxfailures",
+                str(maxfailures),
+                "--maxfailuresdisplayed",
+                str(maxfailuresdisplayed),
+                "--format",
+                format,
+            ]
+            if profile:
+                command.append("--profile")
+                command.append(profile)
+            if flavour:
+                command.append("--flavour")
+                command.append(flavour)
+            if pass_flag:
+                command.append("--pass")
 
-        returncode, stdout, stderr = run_subprocess(command_to_run)
+            command_to_run: str = " ".join(command)
+            command_to_run += f' "{input_file}"'
 
-        if output_file:
-            with open(output_file, "w+", encoding="utf-8") as out:
-                out.write(stdout)
-        else:
-            print(stdout)
+            returncode, stdout, stderr = run_subprocess(command_to_run)
 
-        if stderr:
-            print(stderr, file=sys.stderr)
+            if output_file:
+                with open(output_file, "w+", encoding="utf-8") as out:
+                    out.write(stdout)
+            else:
+                print(stdout)
 
-        # 0,1 are valid return codes (0 - no validation errors in document, 1 - there are validation errors in document)
-        if returncode > 1:
+            if stderr:
+                print(stderr, file=sys.stderr)
+
+            # 0,1 are valid return codes
+            # 0 - no validation errors in document
+            # 1 - there are validation errors in document
+            if returncode > 1:
+                raise ValidationFailed()
+
+            progress_bar.n = 100
+            progress_bar.set_description("Done")
+            progress_bar.refresh()
+
+            return returncode
+
+        except Exception:
             raise ValidationFailed()
-
-        return returncode
-
-    except Exception:
-        raise ValidationFailed()
 
 
 def run_subprocess(command: str) -> tuple[int, str, str]:
