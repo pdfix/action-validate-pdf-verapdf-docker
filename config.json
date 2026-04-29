@@ -139,7 +139,7 @@
                 "14": "Input file must be PDF document and output file must be HTML.",
                 "30": "Validation failed."
             },
-            "progress_regex": "^[^:]+:\\s+(?<progress>\\d{1,3})%"
+            "progress_regex": "^(?<text>[^:]+):\\s+(?<progress>\\d{1,3})%"
         },
         {
             "title": "Validation Report in XML (veraPDF)",
@@ -274,7 +274,7 @@
                 "14": "Input file must be PDF document and output file must be HTML.",
                 "30": "Validation failed."
             },
-            "progress_regex": "^[^:]+:\\s+(?<progress>\\d{1,3})%"
+            "progress_regex": "^(?<text>[^:]+):\\s+(?<progress>\\d{1,3})%"
         }
     ]
 }
