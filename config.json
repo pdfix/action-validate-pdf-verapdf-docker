@@ -10,6 +10,10 @@
             "icon": "verapdf",
             "category": "Validation",
             "local": true,
+            "docker": {
+                "name": "pdfix/validate-pdf-verapdf",
+                "tag": "latest"
+            },
             "returnCodes": [
                 0,
                 1
