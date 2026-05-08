@@ -1,114 +1,73 @@
 # veraPDF Validation
 
-This Docker image includes the veraPDF software that validates all PDF/A and PDF/UA parts & conformance levels. Users can define further checks in order to enforce institutional policy.
+This Docker image includes veraPDF software that validates PDF/A and PDF/UA parts and conformance levels. Users can define further checks to enforce institutional policy.
 
 ## Table of Contents
 
-- [Getting Started](#getting-started)
-- [Run using Command Line Interface](#run-using-command-line-interface)
-- [Command Line Arguments for Validation](#command-line-arguments-for-validation)
-- [Exporting Configuration for Integration](#exporting-configuration-for-integration)
-- [License](#license)
-- [Help & Support](#help--support)
+- [veraPDF Validation](#verapdf-validation)
+  - [Getting started](#getting-started)
+  - [Usage](#usage)
+  - [Commands](#commands)
+  - [Arguments](#arguments)
+  - [Examples](#examples)
+  - [Help \& support](#help--support)
+  - [Licenses](#licenses)
 
-## Getting Started
+## Getting started
 
-To use this Docker application, you will need to have Docker installed on your system. If Docker is not installed, please follow the instructions on the [official Docker website](https://docs.docker.com/get-docker/) to install it.
+You need Docker installed. The first run downloads the image and may take longer than later runs.
 
-## Run using Command Line Interface
+## Usage
 
-To run the Docker container as a CLI, you need to share the folder with the PDF files you wish to validate using the `-v` parameter. In this example, the current folder is used.
-
-The first run will pull the docker image, which may take some time. Make your own image for more advanced use.
-
-```bash
-docker run -v "$(pwd)":/data --rm -w /data/ pdfix/validate-pdf-verapdf:latest validate -i <input>.pdf
-```
-
-Output as HTML
+Mount a folder into the container and run a subcommand:
 
 ```bash
-docker run -v "$(pwd)":/data --rm -w /data/ pdfix/validate-pdf-verapdf:latest validate -i <input>.pdf -o index.html --format html
+docker run --rm -v "$(pwd)":/data -w /data pdfix/validate-pdf-verapdf:latest <command> [options]
 ```
 
-For more detailed information about the available command-line arguments, you can run the following command:
+## Commands
 
-```bash
-docker run --rm pdfix/validate-pdf-verapdf:latest --help
-docker run --rm pdfix/validate-pdf-verapdf:latest validate --help
-docker run --rm pdfix/validate-pdf-verapdf:latest config --help
-```
+- `validate`: Validate a PDF and write or print a report
 
-## Command Line Arguments for Validation
+## Arguments
 
-This image exposes a small command-line interface (CLI) implemented by `main.py` inside the container.
+### `validate`
 
-### CLI shape (recommended pattern)
-
-Use this mental model (and it scales well if you have many images, each with 1–3 subcommands):
-
-```bash
-docker run [docker options] <image> <command> [command options]
-```
-
-- **docker options**: container/runtime settings such as `--rm`, `-v`, `-w`
-- **command**: a subcommand implemented by `main.py` (here: `validate`, `config`)
-- **command options**: arguments for that specific subcommand
-
-### `validate` command
-
-Validates a PDF file using veraPDF and writes a report.
-
-```bash
-docker run -v "$(pwd)":/data --rm -w /data/ pdfix/validate-pdf-verapdf:latest validate --input <input>.pdf
-```
-
-#### Options
-
-| Option | Required | Value / Allowed values | Meaning |
+| Option | Required | Type / expected value | Description |
 |---|:---:|---|---|
-| `--input`, `-i` | yes | path | Input PDF file to validate |
-| `--output`, `-o` | no | path | Output report file. If omitted, the tool prints to stdout (recommended for CI logs). |
-| `--format` | no | `raw` \| `xml` \| `html` \| `text` \| `json` | Output format |
-| `--flavour` | no | string | Validation profile flavour (veraPDF profile selector) |
-| `--profile` | no | path | Path to a validation profile file |
-| `--maxfailures` | no | integer | Maximum number of failed checks before stopping |
-| `--maxfailuresdisplayed` | no | integer | Maximum number of failed checks displayed per rule |
-| `--pass` | no | `true` \| `false` | Whether to include successful validation checks in the output |
+| `--input`, `-i` | yes | Path to an existing `.pdf` file | Input PDF |
+| `--output`, `-o` | no | Path for report file; omit to print to stdout | Output file |
+| `--format` | no | One of: `raw`, `xml`, `html`, `text`, `json` (default: `xml`) | Report format |
+| `--flavour` | no | String (default: `ua1`) | Validation profile flavour |
+| `--profile` | no | Path to an existing validation profile file | Custom profile |
+| `--maxfailures` | no | Integer (default **-1**) | Stop after this many failures |
+| `--maxfailuresdisplayed` | no | Integer (default **-1**) | Max failures shown per rule |
+| `--pass` | no | Flag; include passing checks when present | Show passed checks |
 
-#### Examples
+Notes:
 
-Output to HTML file:
+- For `--format xml`, if `--output` is set it must end with `.xml`.
+- For `--format html`, if `--output` is set it must end with `.html`.
 
-```bash
-docker run -v "$(pwd)":/data --rm -w /data/ pdfix/validate-pdf-verapdf:latest validate -i <input>.pdf -o index.html --format html
-```
+## Examples
 
-Print JSON to stdout (easy to pipe into other tools):
-
-```bash
-docker run -v "$(pwd)":/data --rm -w /data/ pdfix/validate-pdf-verapdf:latest validate -i <input>.pdf --format json
-```
-
-Include passing checks:
+Validate and print XML to stdout:
 
 ```bash
-docker run -v "$(pwd)":/data --rm -w /data/ pdfix/validate-pdf-verapdf:latest validate -i <input>.pdf --pass true
+docker run --rm -v "$(pwd)":/data -w /data pdfix/validate-pdf-verapdf:latest validate -i /data/input.pdf
 ```
 
-### Exporting Configuration for Integration
-
-To export the configuration JSON file, use the following command:
+Validate and write HTML:
 
 ```bash
-docker run -v "$(pwd)":/data --rm -w /data/ pdfix/validate-pdf-verapdf:latest config -o config.json
+docker run --rm -v "$(pwd)":/data -w /data pdfix/validate-pdf-verapdf:latest \
+  validate -i /data/input.pdf -o /data/report.html --format html
 ```
 
-## License
+## Help & support
 
-- veraPDF - `https://verapdf.org/home/#licensing`
+To report an issue, contact `support@pdfix.net`.
 
-## Help & Support
+## Licenses
 
-To obtain a PDFix SDK license or report an issue please contact us at support@pdfix.net.
-For more information visit https://pdfix.net
+- [veraPDF licensing](https://verapdf.org/home/#licensing)
