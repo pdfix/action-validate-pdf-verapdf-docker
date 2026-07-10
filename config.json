@@ -132,11 +132,19 @@
                 }
             ],
             "errors": {
-                "10": "Failed to parse arguments. Please check the usage and try again.",
-                "11": "Input file does not exists.",
-                "12": "Input file must be PDF document.",
-                "13": "Input file must be PDF document and output file must be XML.",
-                "14": "Input file must be PDF document and output file must be HTML.",
+                "2": "Invalid command line parameters.",
+                "3": "Out of Java heap space (memory).",
+                "4": "No files to process.",
+                "6": "I/O Exception while processing.",
+                "7": "Failed to parse one or more files.",
+                "8": "Some PDFs encrypted.",
+                "9": "VeraPDF exception while processing.",
+                "10": "Java XML marshalling exception while processing result.",
+                "15": "Failed to parse arguments. Please check the usage and try again.",
+                "16": "Input file does not exists.",
+                "17": "Input file must be PDF document.",
+                "18": "Input file must be PDF document and output file must be XML.",
+                "19": "Input file must be PDF document and output file must be HTML.",
                 "30": "Validation failed."
             },
             "progress_regex": "^(?<text>[^:]+):\\s+(?<progress>\\d{1,3})%"
@@ -267,11 +275,19 @@
                 }
             ],
             "errors": {
-                "10": "Failed to parse arguments. Please check the usage and try again.",
-                "11": "Input file does not exists.",
-                "12": "Input file must be PDF document.",
-                "13": "Input file must be PDF document and output file must be XML.",
-                "14": "Input file must be PDF document and output file must be HTML.",
+                "2": "Invalid command line parameters.",
+                "3": "Out of Java heap space (memory).",
+                "4": "No files to process.",
+                "6": "I/O Exception while processing.",
+                "7": "Failed to parse one or more files.",
+                "8": "Some PDFs encrypted.",
+                "9": "VeraPDF exception while processing.",
+                "10": "Java XML marshalling exception while processing result.",
+                "15": "Failed to parse arguments. Please check the usage and try again.",
+                "16": "Input file does not exists.",
+                "17": "Input file must be PDF document.",
+                "18": "Input file must be PDF document and output file must be XML.",
+                "19": "Input file must be PDF document and output file must be HTML.",
                 "30": "Validation failed."
             },
             "progress_regex": "^(?<text>[^:]+):\\s+(?<progress>\\d{1,3})%"

@@ -12,6 +12,7 @@ from tqdm import tqdm
 from constants import CONFIG_FILE
 from exceptions import (
     EC_ARG_GENERAL,
+    EC_VERAPDF,
     MESSAGE_ARG_GENERAL,
     ArgumentInputMissingException,
     ArgumentInputPdfException,
@@ -19,6 +20,7 @@ from exceptions import (
     ArgumentInputPdfOutputXmlException,
     ExpectedException,
     ValidationFailed,
+    VeraPDFException,
 )
 from image_update import DockerImageContainerUpdateChecker
 
@@ -215,7 +217,12 @@ def run_validation(
             # 0 - no validation errors in document
             # 1 - there are validation errors in document
             if returncode > 1:
-                raise ValidationFailed()
+                if returncode in EC_VERAPDF:
+                    # These are known VeraPDF return codes, communicate them up
+                    raise VeraPDFException(returncode)
+                else:
+                    # This is unexpected return code, communicate it up
+                    raise ValidationFailed()
 
             progress_bar.n = 100
             progress_bar.set_description("Done")
