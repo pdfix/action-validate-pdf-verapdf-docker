@@ -6,6 +6,7 @@ EC_VERAPDF_FAILED_TO_PARSE_FILES: int = 7
 EC_VERAPDF_ENCRYPTED_PDFS: int = 8
 EC_VERAPDF_VERAPDF_EXCEPTION: int = 9
 EC_VERAPDF_JAVA_XML_MARSHALLING_EXCEPTION: int = 10
+EC_VERAPDF_VALIDATION_STOPPED: int = 12
 
 EC_ARG_GENERAL: int = 15
 EC_ARG_INPUT_MISSING: int = 16
@@ -16,13 +17,18 @@ EC_ARG_INPUT_PDF_OUTPUT_HTML: int = 19
 EC_VALIDATION_FAILED: int = 30
 
 MESSAGE_VERAPDF_ARG: str = "Invalid command line parameters."
-MESSAGE_VERAPDF_MEMORY: str = "Out of Java heap space (memory)."
-MESSAGE_VERAPDF_NO_FILES: str = "No files to process."
-MESSAGE_VERAPDF_IO_EXCEPTION: str = "I/O Exception while processing."
-MESSAGE_VERAPDF_FAILED_TO_PARSE_FILES: str = "Failed to parse one or more files."
-MESSAGE_VERAPDF_ENCRYPTED_PDFS: str = "Some PDFs encrypted."
-MESSAGE_VERAPDF_VERAPDF_EXCEPTION: str = "VeraPDF exception while processing."
-MESSAGE_VERAPDF_JAVA_XML_MARSHALLING_EXCEPTION: str = "Java XML marshalling exception while processing result."
+MESSAGE_VERAPDF_MEMORY: str = "Your system does not have enough available memory to validate the PDF."
+MESSAGE_VERAPDF_NO_FILES: str = "The PDF could not be found or opened."
+MESSAGE_VERAPDF_IO_EXCEPTION: str = (
+    "Could not read or write the file. Check permissions, file security settings or location, and disk space."
+)
+MESSAGE_VERAPDF_FAILED_TO_PARSE_FILES: str = "The PDF appears damaged or invalid and could not be read."
+MESSAGE_VERAPDF_ENCRYPTED_PDFS: str = "The PDF is encrypted. Unlock it or save an unprotected copy first."
+MESSAGE_VERAPDF_VERAPDF_EXCEPTION: str = "Validation stopped due to an unexpected error. Try again or contact support."
+MESSAGE_VERAPDF_JAVA_XML_MARSHALLING_EXCEPTION: str = (
+    "Validation ran, but the report could not be generated. Try again or contact support."
+)
+MESSAGE_VERAPDF_VALIDATION_STOPPED: str = "Validation was cancelled or interrupted. Try again or contact support."
 
 MESSAGE_ARG_GENERAL: str = "Failed to parse arguments. Please check the usage and try again."
 MESSAGE_ARG_INPUT_MISSING: str = "Input file does not exists."
@@ -41,6 +47,7 @@ EC_VERAPDF: dict[int, str] = {
     EC_VERAPDF_ENCRYPTED_PDFS: MESSAGE_VERAPDF_ENCRYPTED_PDFS,
     EC_VERAPDF_VERAPDF_EXCEPTION: MESSAGE_VERAPDF_VERAPDF_EXCEPTION,
     EC_VERAPDF_JAVA_XML_MARSHALLING_EXCEPTION: MESSAGE_VERAPDF_JAVA_XML_MARSHALLING_EXCEPTION,
+    EC_VERAPDF_VALIDATION_STOPPED: MESSAGE_VERAPDF_VALIDATION_STOPPED,
 }
 
 
