@@ -70,4 +70,5 @@ To report an issue, contact `support@pdfix.net`.
 
 ## Licenses
 
-- [veraPDF licensing](https://verapdf.org/home/#licensing)
+- [veraPDF licensing](https://verapdf.org/home/#licensing) (GPLv3+ / MPLv2+)
+

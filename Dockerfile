@@ -13,14 +13,12 @@ RUN apt-get update && \
 
 WORKDIR /usr/validation/
 
-
 # Create a virtual environment
 ENV VIRTUAL_ENV=venv
 RUN python3 -m venv venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY requirements.txt /usr/validation/
 RUN pip install --no-cache-dir -r requirements.txt 
-
 
 # Copy config
 COPY config.json /usr/validation/
@@ -29,5 +27,8 @@ COPY res/ /usr/validation/res/
 # Copy the source code
 COPY src/ /usr/validation/src/
 
+# License
+COPY THIRD_PARTY_LICENSES.md /THIRD_PARTY_LICENSES.md
+LABEL license="veraPDF dual-licensed GPLv3+ / MPLv2+ (see https://verapdf.org/home/#licensing)"
 
 ENTRYPOINT ["/usr/validation/venv/bin/python3", "/usr/validation/src/main.py"]
