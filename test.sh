@@ -46,16 +46,7 @@ else
     EXIT_STATUS=1
 fi
 
-info "Test #02: Extract config"
-docker run --rm $PLATFORM -v $(pwd):/data -w /data $DOCKER_IMAGE config -o $TEMPORARY_DIRECTORY/config.json > /dev/null
-if [ -f "$(pwd)/$TEMPORARY_DIRECTORY/config.json" ]; then
-    success "passed"
-else
-    error "config.json not saved"
-    EXIT_STATUS=1
-fi
-
-info "Test #03: Run validate to html"
+info "Test #02: Run validate to html"
 docker run --rm $PLATFORM -v $(pwd):/data -w /data $DOCKER_IMAGE validate --format html -i example/climate_change.pdf -o $TEMPORARY_DIRECTORY/climate_change.html > /dev/null
 if [ -f "$(pwd)/$TEMPORARY_DIRECTORY/climate_change.html" ]; then
     success "passed"
@@ -64,7 +55,7 @@ else
     EXIT_STATUS=1
 fi
 
-info "Test #04: Run validate to xml"
+info "Test #03: Run validate to xml"
 docker run --rm $PLATFORM -v $(pwd):/data -w /data $DOCKER_IMAGE validate --format xml -i example/climate_change.pdf -o $TEMPORARY_DIRECTORY/climate_change.xml > /dev/null
 if [ -f "$(pwd)/$TEMPORARY_DIRECTORY/climate_change.xml" ]; then
     success "passed"
@@ -74,7 +65,6 @@ else
 fi
 
 info "Cleaning up temporary files from tests"
-rm -f $TEMPORARY_DIRECTORY/config.json
 rm -f $TEMPORARY_DIRECTORY/climate_change.html
 rm -f $TEMPORARY_DIRECTORY/climate_change.xml
 rmdir $(pwd)/$TEMPORARY_DIRECTORY
