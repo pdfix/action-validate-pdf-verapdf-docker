@@ -2,12 +2,11 @@ import json
 import os
 import sys
 from datetime import datetime
-from pathlib import Path
 from typing import Any, Optional
 
 import requests
 
-from constants import CONFIG_FILE, DOCKER_IMAGE, DOCKER_NAMESPACE, DOCKER_REPOSITORY
+from constants import DOCKER_IMAGE, DOCKER_NAMESPACE, DOCKER_REPOSITORY, VERSION
 
 
 class DockerImageContainerUpdateChecker:
@@ -46,14 +45,7 @@ class DockerImageContainerUpdateChecker:
         Returns:
             The current version of the Docker image.
         """
-        config_path: Path = Path(__file__).parent.parent.joinpath(CONFIG_FILE).resolve()
-        try:
-            with open(config_path, "r", encoding="utf-8") as f:
-                config: Any = json.load(f)
-                return config.get("version", "unknown")
-        except (FileNotFoundError, json.JSONDecodeError) as e:
-            print(f"Error reading {CONFIG_FILE}: {e}", file=sys.stderr)
-            return "unknown"
+        return VERSION
 
     def _get_latest_docker_version(self) -> Optional[str]:
         """

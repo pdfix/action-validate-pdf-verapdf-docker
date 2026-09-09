@@ -20,8 +20,6 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY requirements.txt /usr/validation/
 RUN pip install --no-cache-dir -r requirements.txt 
 
-# Copy config
-COPY config.json /usr/validation/
 # Copy veraPDF CLI program (located in res)
 COPY res/ /usr/validation/res/
 # Copy the source code

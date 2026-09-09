@@ -9,7 +9,6 @@ from typing import Any, Optional
 
 from tqdm import tqdm
 
-from constants import CONFIG_FILE
 from exceptions import (
     EC_ARG_GENERAL,
     EC_VERAPDF,
@@ -95,28 +94,6 @@ def str2bool(value: Any) -> bool:
         return False
     else:
         return False
-
-
-def run_config_subcommand(args) -> None:
-    get_pdfix_config(args.output)
-
-
-def get_pdfix_config(path: str) -> None:
-    """
-    If Path is not provided, output content of config.
-    If Path is provided, copy config to destination path.
-
-    Args:
-        path (string): Destination path for config.json file
-    """
-    config_path: Path = Path(__file__).parent.parent.joinpath(CONFIG_FILE)
-
-    with open(config_path, "r", encoding="utf-8") as file:
-        if path is None:
-            print(file.read())
-        else:
-            with open(path, "w") as out:
-                out.write(file.read())
 
 
 def run_validation_subcommand(args) -> None:
@@ -270,18 +247,6 @@ def main():
     )
 
     subparsers = parser.add_subparsers(dest="subparser")
-
-    # Config subcommand
-    config_subparser = subparsers.add_parser(
-        "config",
-        help="Extract config file for integration",
-    )
-    set_arguments(
-        config_subparser,
-        ["output"],
-        "Output to save the config JSON file. Application output is used if not provided.",
-    )
-    config_subparser.set_defaults(func=run_config_subcommand)
 
     # Validate subcommand
     validate_subparser = subparsers.add_parser(

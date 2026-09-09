@@ -22,23 +22,17 @@ version=$1
 echo "Version: ${version}"
 
 
-# config.json
-# Check if config.json exists
-if [ ! -f "config.json" ]; then
-    echo "File config.json does not exist."
+# constants.py
+# Check if constants.py exists
+if [ ! -f "src/constants.py" ]; then
+    echo "File constants.py does not exist."
     exit 1
 fi
 
-# Replace in config.json in "version" : "v0.0.0"
-# "v0.0.0" in with the provided argument
-sed -i.bak "s|v0\.0\.0|${version}|g" config.json && rm config.json.bak
+# Replace "v0.0.0" in constants.py with the provided argument
+sed -i.bak "s|v\.0\.0|${version}|g" src/constants.py && rm src/constants.py.bak
 
-echo "Replaced all occurrences of 'v0.0.0' with '${version}' in config.json."
-
-# Replace "latest" with the provided argument in config.json
-sed -i.bak "s|:latest|:${version}|g" config.json && rm config.json.bak
-
-echo "Replaced all occurrences of 'latest' with '${version}' in config.json."
+echo "Replaced 'v0.0.0' with '${version}' in src/constants.py."
 
 
 # README.md
