@@ -155,7 +155,7 @@ def run_validation(
         progress_bar.set_description("Validating")
 
         try:
-            java_program_path: str = Path(__file__).parent.parent.joinpath("res/cli-1.30.2.jar").as_posix()
+            java_program_path: str = Path(__file__).parent.parent.joinpath("res/cli-1.30.3.jar").as_posix()
             command: list[str] = [
                 "java",
                 "-jar",
